@@ -1,0 +1,5 @@
+# Ignore project virtual environment
+CCenv/
+
+# Ignore cache
+__pycache__/

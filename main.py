@@ -1,0 +1,21 @@
+from project_object import project
+from driver import *
+
+from fastapi import FastAPI, Request
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+
+app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="static/html-templates")
+
+@app.get("/", response_class=HTMLResponse)
+def home(request: Request):
+    gallery = get_gallery()
+    return templates.TemplateResponse("portfolio.html", {"request":request, "gallery": gallery})
+
+@app.get("/portfolio", response_class=HTMLResponse)
+def home(request: Request):
+    gallery = get_gallery()
+    return templates.TemplateResponse("portfolio.html", {"request":request, "gallery": gallery})
