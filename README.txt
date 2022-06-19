@@ -31,6 +31,8 @@ to the system python.exe
     - run python
     - $ import sys
     - $ print(sys.executable)
+Actually this just works:
+    - $ python -m venv (name)
 
 Launch virtual environment:
     - $ CCenv\Scripts\activate.bat

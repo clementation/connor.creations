@@ -19,6 +19,7 @@ def parse_details(sub_dir):
             for root, dirs, files in os.walk(filename.path):
                 for filename in files:
                     images.append(os.path.join(root, filename))
+    images.sort(reverse = True)
 
     new_project = project(title, date, description, images)
     return new_project

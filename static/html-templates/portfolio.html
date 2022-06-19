@@ -8,15 +8,21 @@
 </head>
 
 <body>
-<h1>Portfolio</h1>
-<div class="gallery">
+<div id="portfolio-hero">
+
+</div>
+<div id="gallery">
     {% for project in gallery %}
-        <h2>{{ project.title }}</h2>
-        <h3>{{ project.date }}</h3>
-        {% for image in project.images %}
+    <div class="project-minimized">
+        <!-- <h2>{{ project.title }}</h2>
+        <h3>{{ project.date }}</h3> -->
+        <div class="carousell-containter">
+            <!-- {% for image in project.images %}
             <img src="{{ image }}">
-        {% endfor %}
-        <p>{{ project.description }}</p>
+            {% endfor %} -->
+        </div>
+        <!-- <p>{{ project.description }}</p> -->
+    </div>
     {% endfor %}
 </div>
 </body>

@@ -19,3 +19,9 @@ def home(request: Request):
 def home(request: Request):
     gallery = get_gallery()
     return templates.TemplateResponse("portfolio.html", {"request":request, "gallery": gallery})
+
+
+test_gallery = get_gallery()
+
+for project in test_gallery:
+    project.print_project()
