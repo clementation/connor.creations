@@ -12,6 +12,9 @@ Dev Notes
 FastAPI Documentation
     https://fastapi.tiangolo.com/tutorial/static-files/
 
+Jinja Partials Extention
+    https://github.com/mikeckennedy/jinja_partials
+
 Git handbook:
     https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository
 

@@ -5,24 +5,38 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{{ url_for('static', path='/css/portfolio.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', path='/css/header.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', path='/js/portfolio.js') }}"></script>
+    <link rel="stylesheet" href="https://use.typekit.net/fjg0ajy.css">
 </head>
 
 <body>
-<div id="portfolio-hero">
-
-</div>
-<div id="gallery">
-    {% for project in gallery %}
-    <div class="project-minimized">
-        <!-- <h2>{{ project.title }}</h2>
-        <h3>{{ project.date }}</h3> -->
-        <div class="carousell-containter">
-            <!-- {% for image in project.images %}
-            <img src="{{ image }}">
-            {% endfor %} -->
+    {{ render_partial('partials/header.html') }}
+    <div id="portfolio-hero"></div>
+    <div id="gallery-container">
+        {% for project in gallery %}
+        <div data-active="false" class="project project-closed">
+            <div class="carousel-container carousel-container-closed">
+                <button class="carousel-button prev"><</button>
+                <button class="carousel-button next">></button>
+                <ul>
+                    {% for image in project.images %}
+                        <li class="slide">
+                            <img src="{{ image }}">
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="project-information-closed">
+                <div class="date-and-title-closed">
+                    <h3>{{ project.title }}</h3>
+                    <h5>{{ project.date }}</h5>
+                </div>
+                <div class="project-description-closed">
+                    <p>{{ project.description }}</p>
+                </div>
+            </div>
         </div>
-        <!-- <p>{{ project.description }}</p> -->
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
 </body>
