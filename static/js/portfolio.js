@@ -23,32 +23,24 @@ window.addEventListener('load', () =>{
 // Close any already open projects
 // Open project user just clicked on
 function openProject(evt){
-    // check if project is expanded
+    // check if another project is already expanded
     var projects = document.getElementById('gallery-container').children;
     for (const project of projects){
-        if(project.dataset.active === "true"){
+        if(project.hasAttribute('data-active')){
             var activeProject = project;
             break;
         }
     }
     // if expanded, set class to minimized
     if(activeProject){
-        activeProject.classList.remove('project-open');
-        activeProject.classList.add('project-closed');
-        activeProject.querySelector('.carousel-container').classList.remove('carousel-container-open');
-        activeProject.querySelector('.carousel-container').classList.add('carousel-container-closed');
-        activeProject.dataset.active = "false";
+        deactivateProject(activeProject);
         orderGrid();
     }
 
 
     // if minimized, set class ot expanded
-    if(evt.currentTarget.dataset.active === "false"){
-        evt.currentTarget.classList.remove('project-closed');
-        evt.currentTarget.classList.add('project-open');
-        evt.currentTarget.querySelector('.carousel-container').classList.remove('carousel-container-closed');
-        evt.currentTarget.querySelector('.carousel-container').classList.add('carousel-container-open');
-        evt.currentTarget.dataset.active = "true";
+    if(!evt.currentTarget.hasAttribute('data-active')){
+        activateProject(evt.currentTarget);
         makeOpenRowFront();
     }
     // if maximized do nothing
@@ -62,7 +54,7 @@ function openProject(evt){
 function closeProject(evt){
     var projects = document.getElementById('gallery-container').children;
     for (let project of projects){
-        if(project.dataset.active === "true"){
+        if(project.hasAttribute('data-active')){
             var activeProject = project;
             break;
         }
@@ -74,38 +66,42 @@ function closeProject(evt){
         }
         clickedElement = clickedElement.parentNode;
     }while(clickedElement);
-    activeProject.classList.remove('project-open');
-    activeProject.classList.add('project-closed');
-    activeProject.querySelector('.carousel-container').classList.remove('carousel-container-open');
-    activeProject.querySelector('.carousel-container').classList.add('carousel-container-closed');
-    activeProject.dataset.active = "false";
+    deactivateProject(activeProject);
     orderGrid();
 }
 
 // ===== Square Grid =====
 // Set the height of closed tiles eqial to their width
 function squareGrid(){
-    var projectWidth = document.querySelector('.project-closed').offsetWidth;
-    projectWidth = projectWidth / 2;
-    document.querySelector('#gallery-container').style.setProperty('grid-auto-rows', `${projectWidth}px`);
+    var project = document.querySelector('.project');
+    var width = project.offsetWidth;
+    var margin = parseInt(getComputedStyle(project).margin);
+    console.log(width);
+    console.log(margin);
+    width = width / 2;
+    document.querySelector('#gallery-container').style.setProperty('grid-auto-rows', `${width + margin}px`);
 }
 
 // ===== Show Title =====
 // changes height and padding of date-and-title to
 // display when user cursor enters a project tile
-// ! NOTE: Selection should not be hard coded !
 function showTitle(evt){
-    evt.currentTarget.children[1].children[0].style.setProperty('height', "auto");
-    evt.currentTarget.children[1].children[0].style.setProperty('padding', "1.5% 2.5% 1.5% 2.5%");
+    if(!evt.currentTarget.hasAttribute('data-active')){
+        var title = evt.currentTarget.querySelector('.date-and-title');
+        title.style.setProperty('height', "auto");
+        title.style.setProperty('padding', "1.5% 2.5% 1.5% 2.5%");
+    }
 }
 
 // ===== Hide Title =====
 // changes height and padding of date-and-title to
 // hide when user cursor leaves a project tile
-// ! NOTE: Selection should not be hard coded !
 function hideTitle(evt){
-    evt.currentTarget.children[1].children[0].style.setProperty('height', "0");
-    evt.currentTarget.children[1].children[0].style.setProperty('padding', "0");
+    if(!evt.currentTarget.hasAttribute('data-active')){
+        var title = evt.currentTarget.querySelector('.date-and-title');
+        title.style.setProperty('height', "0");
+        title.style.setProperty('padding', "0");
+    }
 }
 
 // ===== Order Grid =====
@@ -123,7 +119,7 @@ function orderGrid(){
 function makeOpenRowFront(){
     var projects = document.getElementById('gallery-container').children;
     for(let i = 0; i < projects.length; i++){
-        if(projects[i].dataset.active === "true"){
+        if(projects[i].hasAttribute('data-active')){
             var rowStart = i;
             // `rowStart` represents the furthest left tile in a grid row
             while(rowStart % 3 != 0){
@@ -136,13 +132,32 @@ function makeOpenRowFront(){
     }
 }
 
+function activateProject(project){
+    project.dataset.active = true;
+    project.querySelector('.carousel-container').dataset.active = true;
+    project.querySelector('.project-information').dataset.active = true;
+    var title = project.querySelector('.date-and-title');
+    title.dataset.active = true;
+    title.style.removeProperty('height');
+    title.style.removeProperty('padding');
+    project.querySelector('.project-description').dataset.active = true;
+}
+
+function deactivateProject(project){
+    project.removeAttribute('data-active');
+    project.querySelector('.carousel-container').removeAttribute('data-active');
+    project.querySelector('.project-information').removeAttribute('data-active');
+    project.querySelector('.date-and-title').removeAttribute('data-active');
+    project.querySelector('.project-description').removeAttribute('data-active');
+}
+
 function activateFirstSlide(){
-    const allCarouselContainers = document.getElementsByClassName('carousel-container-closed');
+    const allCarouselContainers = document.getElementsByClassName('carousel-container');
     for(const carouselContainer of allCarouselContainers){
-        console.log(carouselContainer.children[2]);
-        if(carouselContainer.children[2].children.length > 0){
-            console.log(carouselContainer.children[2].children);
-            carouselContainer.children[2].children[0].dataset.active = true;
+        console.log(carouselContainer.children[0]);
+        if(carouselContainer.children[0].children.length > 0){
+            console.log(carouselContainer.children[0].children);
+            carouselContainer.children[0].children[0].dataset.active = true;
         }
     }
 }

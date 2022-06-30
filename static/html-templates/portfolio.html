@@ -15,10 +15,8 @@
     <div id="portfolio-hero"></div>
     <div id="gallery-container">
         {% for project in gallery %}
-        <div data-active="false" class="project project-closed">
-            <div class="carousel-container carousel-container-closed">
-                <button class="carousel-button prev"><</button>
-                <button class="carousel-button next">></button>
+        <div class="project">
+            <div class="carousel-container">
                 <ul>
                     {% for image in project.images %}
                         <li class="slide">
@@ -27,12 +25,12 @@
                     {% endfor %}
                 </ul>
             </div>
-            <div class="project-information-closed">
-                <div class="date-and-title-closed">
+            <div class="project-information">
+                <div class="date-and-title">
                     <h3>{{ project.title }}</h3>
                     <h5>{{ project.date }}</h5>
                 </div>
-                <div class="project-description-closed">
+                <div class="project-description">
                     <p>{{ project.description }}</p>
                 </div>
             </div>

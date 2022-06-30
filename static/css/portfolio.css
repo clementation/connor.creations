@@ -9,10 +9,16 @@ ul{
 
 #gallery-container{
     margin: auto;
-    max-width: 50rem;
+    max-width: 60rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, 16.666%);
 }
+
+.carousel-container{
+    position: relative;
+}
+
+/* ===== Project Closed ===== */
 
 .project{
     margin: 0.5rem;
@@ -24,20 +30,12 @@ ul{
     /* border-radius: 0.5rem;
     overflow: hidden; */
     transition: ease-in-out 0.08s;
-}
-
-.carousel-container{
-    position: relative;
-}
-
-/* ===== Project Closed ===== */
-
-.project-closed{
+    /* --- Closed --- */
     grid-column: auto / span 2;
     grid-row: auto / span 2;
 }
 
-.project-closed:hover{
+.project:hover{
     transform: scale(1.03);
 }
 
@@ -45,19 +43,19 @@ ul{
     position: relative;
 } */
 
-.carousel-container-closed{
+.carousel-container{
     width: 100%;
     height: 100%;
     pointer-events: none;
 }
 
-.carousel-container-closed > *{
+.carousel-container > *{
     pointer-events: inherit;
 }
 
-.carousel-container-closed > .carousel-button{
+/* .carousel-container > .carousel-button{
     display: none;
-}
+} */
 
 .slide{
     position: absolute;
@@ -69,7 +67,7 @@ ul{
     opacity: 1;
 }
 
-.project-information-closed{
+.project-information{
     position: absolute;
     width: 100%;
     height: 100%;
@@ -78,7 +76,7 @@ ul{
     pointer-events: none;
 }
 
-.date-and-title-closed{
+.date-and-title{
     width: 100%;
     height: 0%;
     /* padding: 1.5% 2.5% 1.5% 2.5%; */
@@ -93,24 +91,53 @@ ul{
     pointer-events: none;
 }
 
-.date-and-title-closed > h3,h5{
+.date-and-title > *{
     color: white;
     margin: 0;
 }
 
-.project-description-closed{
+.project-description{
     display: none;
 }
 
 /* ===== Project Open ===== */
 
-.project-open{
+.project[data-active]{
+    background: none;
     grid-column: 1 / 7;
     grid-row: auto / span 3;
 }
 
-.carousel-container-open{
-    border: solid black 1px;
+.project[data-active]:hover{
+    transform: none;
+}
+
+.carousel-container[data-active]{
+    /* border: solid black 1px; */
     height: 95%;
-    width: auto;
+    width: 100%;
+}
+
+.project-information[data-active]{
+    position: relative;
+    height: 95%;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.date-and-title[data-active]{
+    background: none;
+    position: relative;
+    height: auto;
+    top: 0;
+}
+
+.date-and-title[data-active] > *{
+    color: black;
+    margin: 0;
+}
+
+.project-description[data-active]{
+    margin-top: 5%;
+    display: block;
 }
