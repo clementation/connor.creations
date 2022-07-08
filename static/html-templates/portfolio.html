@@ -4,10 +4,18 @@
     <title>connor.creations</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- swiper -->
+    <link href="{{ url_for('static', path='/css/swiper-bundle.min.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', path='/js/swiper-bundle.min.js') }}"></script>
+
+    <!-- adobe fonts -->
+    <link rel="stylesheet" href="https://use.typekit.net/fjg0ajy.css">
+
+    <!-- my files -->
     <link href="{{ url_for('static', path='/css/portfolio.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', path='/css/header.css') }}" rel="stylesheet">
     <script src="{{ url_for('static', path='/js/portfolio.js') }}"></script>
-    <link rel="stylesheet" href="https://use.typekit.net/fjg0ajy.css">
 </head>
 
 <body>
@@ -16,7 +24,7 @@
     <div id="gallery-container">
         {% for project in gallery %}
         <div class="project">
-            <div class="carousel-container">
+            <!-- <div class="carousel-container">
                 <ul>
                     {% for image in project.images %}
                         <li class="slide">
@@ -24,6 +32,18 @@
                         </li>
                     {% endfor %}
                 </ul>
+            </div> -->
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    {% for image in project.images %}
+                        <div class="swiper-slide">
+                            <img src="{{ image }}">
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="swiper-pagination swiper-navigation"></div>
+                <div class="swiper-button-prev swiper-navigation"></div>
+                <div class="swiper-button-next swiper-navigation"></div>
             </div>
             <div class="project-information">
                 <div class="date-and-title">

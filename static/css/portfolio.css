@@ -14,7 +14,7 @@ ul{
     grid-template-columns: repeat(auto-fit, 16.666%);
 }
 
-.carousel-container{
+.swiper{
     position: relative;
 }
 
@@ -39,25 +39,29 @@ ul{
     transform: scale(1.03);
 }
 
-/* .carousel-container{
+/* .swiper{
     position: relative;
 } */
 
-.carousel-container{
+.swiper{
     width: 100%;
     height: 100%;
     pointer-events: none;
 }
 
-.carousel-container > *{
+.swiper > *{
     pointer-events: inherit;
 }
 
-/* .carousel-container > .carousel-button{
+.swiper-navigation{
+    display: none;
+}
+
+/* .swiper > .carousel-button{
     display: none;
 } */
 
-.slide{
+/* .slide{
     position: absolute;
     inset: 0;
     opacity: 0;
@@ -65,10 +69,11 @@ ul{
 
 .slide[data-active]{
     opacity: 1;
-}
+} */
 
 .project-information{
     position: absolute;
+    z-index: 2;
     width: 100%;
     height: 100%;
     display: flex;
@@ -112,10 +117,16 @@ ul{
     transform: none;
 }
 
-.carousel-container[data-active]{
-    /* border: solid black 1px; */
+.swiper[data-active]{
+    border: solid black 1px;
     height: 95%;
     width: 100%;
+    pointer-events: all;
+}
+
+.swiper-navigation[data-active]{
+    display: block;
+    pointer-events: all;
 }
 
 .project-information[data-active]{

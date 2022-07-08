@@ -16,8 +16,23 @@ window.addEventListener('load', () =>{
     document.addEventListener('click', closeProject);
 
     //activate first slide in image carousel
-    activateFirstSlide();
-})
+    // activateFirstSlide();
+
+    //swiper
+    console.log("eh");
+    const swiper = new Swiper('.swiper', {
+        loop: true,
+
+        pagination: {
+            el: '.swiper-pagination',
+        },
+
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    })
+});
 
 // ===== Open Project =====
 // Close any already open projects
@@ -134,8 +149,12 @@ function makeOpenRowFront(){
 
 function activateProject(project){
     project.dataset.active = true;
-    project.querySelector('.carousel-container').dataset.active = true;
+    project.querySelector('.swiper').dataset.active = true;
     project.querySelector('.project-information').dataset.active = true;
+    var swiperNavigation = project.querySelectorAll('.swiper-navigation');
+    for(let navElement of swiperNavigation){
+        navElement.dataset.active = true;
+    }
     var title = project.querySelector('.date-and-title');
     title.dataset.active = true;
     title.style.removeProperty('height');
@@ -145,22 +164,26 @@ function activateProject(project){
 
 function deactivateProject(project){
     project.removeAttribute('data-active');
-    project.querySelector('.carousel-container').removeAttribute('data-active');
+    project.querySelector('.swiper').removeAttribute('data-active');
     project.querySelector('.project-information').removeAttribute('data-active');
+    var swiperNavigation = project.querySelectorAll('.swiper-navigation');
+    for(let navElement of swiperNavigation){
+        navElement.removeAttribute('data-active');
+    }
     project.querySelector('.date-and-title').removeAttribute('data-active');
     project.querySelector('.project-description').removeAttribute('data-active');
 }
 
-function activateFirstSlide(){
-    const allCarouselContainers = document.getElementsByClassName('carousel-container');
-    for(const carouselContainer of allCarouselContainers){
-        console.log(carouselContainer.children[0]);
-        if(carouselContainer.children[0].children.length > 0){
-            console.log(carouselContainer.children[0].children);
-            carouselContainer.children[0].children[0].dataset.active = true;
-        }
-    }
-}
+// function activateFirstSlide(){
+//     const allCarouselContainers = document.getElementsByClassName('carousel-container');
+//     for(const carouselContainer of allCarouselContainers){
+//         console.log(carouselContainer.children[0]);
+//         if(carouselContainer.children[0].children.length > 0){
+//             console.log(carouselContainer.children[0].children);
+//             carouselContainer.children[0].children[0].dataset.active = true;
+//         }
+//     }
+// }
 
 //Magic node swap
 //code pulled from online still need to unserstand how this works
